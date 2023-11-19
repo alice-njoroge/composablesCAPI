@@ -6,8 +6,12 @@
 <script setup>
 import usePost from "../composables/usePost";
 import PostCard from "../components/PostCard.vue";
+import {onMounted} from "vue";
 
 const {posts, fetchAll} = usePost();
-fetchAll();
+
+onMounted(()=>{
+  fetchAll();
+})
 
 </script>
