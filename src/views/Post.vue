@@ -9,18 +9,17 @@
 import usePost from "../composables/usePost";
 import { useRoute } from 'vue-router'
 import {onMounted} from "vue";
+import useUser from "../composables/useUser";
 
 const {params} = useRoute();
 const id = params.id
 
 const {post, fetchOne} = usePost();
+const {user, fetchOne: fetchUser} = useUser();
 
 onMounted(()=>{
   fetchOne(id);
+  fetchUser(id)
 })
 
-
-const user = {
-  name: "Leanne Graham",
-};
 </script>
