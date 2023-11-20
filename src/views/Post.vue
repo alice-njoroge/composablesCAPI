@@ -9,21 +9,22 @@
 </template>
 <script setup>
 
-import { useRoute } from 'vue-router'
-import {onMounted} from "vue";
+import {useRoute} from 'vue-router'
+import {onMounted, watch} from "vue";
 import useResource from "../composables/useResource";
 
 const {params} = useRoute();
 const id = params.id
+//posts
+const {item: post, fetchOne: fetchPost} = useResource('posts');
+fetchPost(id);
 
-const {item:user, fetchOne: fetchUser} = useResource('users')
-const {item: post, fetchOne: fetchPost } = useResource('posts')
+//users
+const {item: user, fetchOne: fetchUser} = useResource('users')
+watch(
+    () => ({...post.value}),
+    () => fetchUser(post.value.userId)
+)
 
-onMounted(()=>{
-  (async ()=>{
-    await fetchPost(id);
-    await fetchUser(post.value.userId);
-  })()
-})
 
 </script>
