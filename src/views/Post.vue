@@ -20,8 +20,9 @@ const {item:user, fetchOne: fetchUser} = useResource('users')
 const {item: post, fetchOne: fetchPost } = useResource('posts')
 
 onMounted(()=>{
-  fetchPost(id);
-  fetchUser(id)
+  fetchPost(id).then(()=>{
+    fetchUser(post.value.userId)
+  })
 })
 
 </script>
