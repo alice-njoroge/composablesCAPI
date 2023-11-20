@@ -7,24 +7,19 @@
     <div>{{ post.body }}</div>
   </div>
 </template>
-<script setup>
+<script setup async>
 
 import {useRoute} from 'vue-router'
-import {onMounted, watch} from "vue";
 import useResource from "../composables/useResource";
 
 const {params} = useRoute();
 const id = params.id
 //posts
 const {item: post, fetchOne: fetchPost} = useResource('posts');
-fetchPost(id);
+await fetchPost(id);
 
 //users
 const {item: user, fetchOne: fetchUser} = useResource('users')
-watch(
-    () => ({...post.value}),
-    () => fetchUser(post.value.userId)
-)
-
+fetchUser(post.value.userId)
 
 </script>
